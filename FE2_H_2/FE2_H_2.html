@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	  <meta charset="UTF-8" />
+	  <title> Canvas </title>
+	  <style>
+        #my_canvas {
+          border:2px solid blue;
+        }
+      </style>
+  </head>
+  <body>
+      <h1>Canvas Circle</h1>
+      <input type="button" value="Button" onclick="AddCircle();" />
+      <input type="button" value="Change" onclick="AddChange();" />
+      <input type="button" value="Audi" id="btn" onclick="AddAudi();" />
+      <canvas id="my_canvas" width="800" height="600">
+        Your browser does not support canvas.
+      </canvas>
+      <script>
+                var canvas = document.getElementById("my_canvas");
+                var ctx = canvas.getContext("2d");
+                ctx.fillStyle = "white";
+                ctx.beginPath();
+                ctx.moveTo(150, 40);
+                ctx.lineTo(150,210);
+                ctx.lineTo(300, 210);
+                ctx.lineTo(300,40);
+                ctx.closePath();
+                ctx.stroke();
+
+                // Квадрат за емблемата на ауди
+                ctx.fillStyle = "white";
+                ctx.beginPath();
+                ctx.moveTo(150, 220);
+                ctx.lineTo(150,390);
+                ctx.lineTo(300, 390);
+                ctx.lineTo(300,220);
+                ctx.closePath();
+                ctx.stroke();
+
+
+        function AddAudi() 
+        {
+                ctx.strokeStyle = "blue";
+                ctx.beginPath();
+                ctx.arc(180,300,20,0, convertDegToRad(360));
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(210,300,20,0, convertDegToRad(360));
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(240,300,20,0, convertDegToRad(360));
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(270,300,20,0, convertDegToRad(360));
+                ctx.stroke();
+
+                ctx.font = "30px Arial";
+                ctx.fillStyle = "red";
+                ctx.fillText("Audi",160,350);
+      
+                document.getElementById("btn").onclick = function AddAudi() 
+                {
+                  this.disabled = true;
+                }
+         }
+
+		// AddAudi();
+
+        function convertDegToRad(deg) 
+        {
+           return deg*Math.PI/180;
+        }
+             
+
+      	function AddChange() 
+      	{
+             ctx.fillStyle = "white";
+             ctx.strokeStyle = "white";
+             ctx.beginPath();
+
+            for(var i = 1; i <= 3; i++ ) 
+            {
+
+
+               	for(var j = 1; j <= 3; j++)
+               	{
+                ctx.moveTo(175,62);
+
+                ctx.arc((175+(i-1)*48),62*j,20,0, convertDegToRad(360));
+              	}
+
+            } 
+            ctx.stroke();
+            ctx.fill();
+        }
+
+        function AddCircle()
+        {
+
+            ctx.fillStyle = "black";
+            ctx.beginPath();
+
+               for(var i = 1; i <= 3; i++ ) 
+               {
+
+
+	                for(var j = 1; j <= 3; j++)
+	                {
+	                  ctx.moveTo(175,62);
+
+	                  ctx.arc((175+(i-1)*48),62*j,20,0, convertDegToRad(360));
+	                }
+              	}
+
+           	ctx.fill();
+        }
+     </script>
+   </body>
+</html>

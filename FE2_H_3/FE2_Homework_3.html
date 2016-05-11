@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="bg-BG">
+<head>
+	<meta charset="UTF-8" />
+	<title>Homework_3</title>
+	<style>
+		div.wrapper 
+		{
+			width: auto;
+			border:1px solid;
+			background-color: #808080;
+		}
+
+		div.wrapper span 
+		{
+			color: #fff;
+			margin-left: 5px;
+		}
+
+		div.wrapper nav 
+		{
+			display: inline-block;
+		}
+
+		div.wrapper nav button 
+		{
+			width: 90px;
+			border-top-left-radius: 15px;
+			border-bottom-right-radius: 15px;
+			padding: 5px 10px;
+			margin: 10px 0px;
+			background-color: #F0F0F0;
+			font-weight: bold;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 14px;
+			outline: 0;
+		}
+
+		div.wrapper div#location 
+		{
+			width: 400px;
+			border:1px solid blue;
+			border-bottom-radius:10px;
+
+		}
+	</style>
+
+</head>
+<body>
+	<div class="wrapper">
+		<span>Местоположение:</span>
+		<nav>
+			<button id="first_btn" onclick="getLocation();">Вземи</button>
+			<button id="second_btn" onclick="saveLocation();">Запази</button>
+			<button onclick="loading();">Зареди</button>
+			<button onclick="Delete();">Изтрий</button>
+		</nav>
+		<div id="location">
+
+		</div>
+	</div>
+	<script>
+		function getLocation()
+		{
+			document.getElementById('location');
+			if (navigator.geolocation) 
+			{
+				navigator.geolocation.getCurrentPosition(showPosition, showError);
+			} 
+			else 
+			{ 
+				locator.innerHTML = 'Geolocation is not supported by this browser.';
+			}
+
+		}
+
+		function showPosition(position) 
+		{
+			var latlon = position.coords.latitude + "," + position.coords.longitude;
+			var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="
+			+latlon+"&zoom=14&size=400x400&sensor=false";
+			document.getElementById('location').innerHTML = "<img id='locImg' src='"+img_url+"' />";
+			document.getElementById('location').style.visibility = "visible";
+		}
+
+		function showError(error) 
+		{
+			switch(error.code) 
+			{
+				case error.PERMISSION_DENIED:
+				locator.innerHTML = "User denied the request for Geolocation."
+				break;
+				case error.POSITION_UNAVAILABLE:
+				locator.innerHTML = "Location information is unavailable."
+				break;
+				case error.TIMEOUT:
+				locator.innerHTML = "The request to get user location timed out."
+				break;
+				case error.UNKNOWN_ERROR:
+				locatorr.innerHTML = "An unknown error occurred."
+				break;
+			}
+			document.getElementById('location').style.visibility = "visible";
+		}
+		function saveLocation() 
+		{
+			var srclink = document.getElementById('locImg').getAttribute("src");
+			var savelink = "<img src='" + srclink + "' />";
+			localStorage.setItem('map', savelink);   
+			alert('save');
+
+		} 
+
+		function loading() 
+		{ 
+			if(typeof(Storage) !== "undefined")
+			{
+				document.getElementById('location').innerHTML = localStorage.getItem("map");
+				document.getElementById('location').style.visibility = "visible";
+			}
+			else 
+			{
+				document.getElementById('location').innerHTML = "Sorry, your browser does not support Web Storage...";
+			}
+		}
+		function Delete() 
+		{
+			if(localStorage.getItem('map') === null)
+			{
+				alert('There is nothing to delete.');   
+			}
+			else
+			{
+				localStorage.removeItem('map');
+				document.getElementById('myLocation').style.visibility = "hidden";
+			}
+		}
+		
+	</script>
+</body>
+</html>
