@@ -1,0 +1,44 @@
+
+
+main
+{
+	border: 2px solid lightblue;
+	width: 100%;
+	height: 100%;
+}
+
+#mainPicContainer
+{
+	width: 100%;
+	border: 2px solid lightblue;
+}
+
+#mainPic
+{
+	width: 640px;
+	height: 480px;
+}
+#mainPicContainer
+{
+	width: 100%;
+	border: 2px solid lightblue;
+}
+
+#gallery
+{
+	border: 1px solid blue;
+}
+
+.galleryImg
+{
+	width: 128px;
+	height: 96px;
+	border-radius: 10%;
+	border: 2px solid silver;
+	margin-top: 5px;
+	margin-left: 5px;
+}
+.shortWrapper
+{
+	width: 645px;
+}
