@@ -1,0 +1,30 @@
+div {
+	border: 2px solid lightblue;
+}
+
+#gallery ul {
+	list-style-type: none;
+}
+
+#gallery li {
+	display: inline-block;
+}
+
+#gallery li img {
+	width: 128px;
+	height: 96px;
+	border-radius: 10%;
+	border: 2px solid silver;
+	margin-top: 5px;
+	margin-left: 5px;
+	cursor: pointer;
+}
+
+#main > img {
+	width: 640px;
+	height: 480px;
+}
+
+.bigger {
+	width: 645px !important;
+}

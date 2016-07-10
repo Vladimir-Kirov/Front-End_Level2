@@ -1,30 +1,101 @@
-<!doctype html>
-<html lang="bg-BG">
+<!DOCTYPE html>
+<html>
 	<head>
-		<meta charset="UTF-8" />
-		<title>Dom</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-		<script type="text/javascript" src="main.js"></script>
-		<link rel="stylesheet" type="text/css" href="main.css" />
+		<title>Gallery</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+		<script>
+		$(document).ready(function() {
+
+			var imgSrc; // Декларирам променлива, която използвам най-долу
+			var url, newImgEl, lastLink;
+			var hidden = false;
+
+			$('#toggle').on('click', function(e) {
+
+				if (hidden) { // hidden = true;
+					$('#gallery').slideDown(2000, function() {
+						$('#toggle').html('Hide'); // $(this).parent().find('#toggle')
+					});
+				} else {
+					$('#gallery').slideUp(2000, function() {
+						$('#toggle').html('Show'); // $(this).parent().find('#toggle')
+					});
+				}
+
+				hidden = !hidden;
+			});
+
+			$('#resize').on('click', function(e) {
+				$('#main').find('img').parents().toggleClass('bigger');
+			});
+
+			$('#add').click(function(){
+		    	lastLink = localStorage.getItem('lastAddedImg');
+		    	//alert(lastLink);
+		    	if(lastLink != 'null' && lastLink != '')
+		    	{
+		    		url = prompt('Enter url ', lastLink);
+		    		if(url)
+		    		{
+		    			newImgEl = '<li><img alt="Error 404" src="'+ url +'" /></li>';
+		    			$('#gallery').find('ul').append(newImgEl);
+		    			if(url != lastLink && url != null)
+		    			{	
+		    				localStorage.setItem('lastAddedImg',url);
+		    				
+		    			}
+		    		}
+		    		else {
+		    			alert('You haven\'t entered anything!');
+		    		}
+		    		
+		    	}
+		    	else
+		    	{
+		    		url = prompt('Write the img url please.','http://');
+		    		if(url != '' && url != null)
+		    		{
+		    			newImgEl = '<li><img alt="Error 404" src="'+ url +'" /></li>';
+		    			localStorage.setItem('lastAddedImg', url);
+		    			$('#gallery').find('ul').append(newImgEl);
+		    		}	
+			    	else
+			    	{
+			    		alert('Sorry, your browser does not support Web Storage...');
+			    	}		
+		    	}
+		    });
+
+
+
+			$('#gallery').on('click', 'img', function(e) {
+				$('#main').find('img').attr('src', $(this).attr('src'));//attr - връща стойността на атрибута src(img)	
+			});
+
+		});
+		</script>
 	</head>
 	<body>
-		<div id="wrapper">
-			<button type="button" id="btn_hide">Hide</button>
-			<button type="button" id="btn_collapse">&harr;</button>
-			<button type="button" id="btn_add">Add</button>
-			<main>
-				<div id="mainPicContainer">
-					<img id="mainPic" src="http://www.aspneter.com/aspneter/wp-content/uploads/2016/01/no-thumb.jpg" />
-				</div>
-				<div id="gallery">
-					<img class="galleryImg" src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSdPPE7OQN1OhFVF-zkfJl0nuYleLMyVMgOzpRky9OjA-gKJnIu" alt="Error 404">
-					<img class="galleryImg" src="https://i.ytimg.com/vi/_RBNpALibqo/maxresdefault.jpg" alt="Error 404">
-					<img class="galleryImg" src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTcjB70Hm9ieDXAzeMiVOsS4UN_QJUI9Xz8EF_IQXZZE3F0FncG" alt="Error 404">
-					<img class="galleryImg" src="http://www.familyfriendpoems.com/images/hero/nature-nature.jpg" alt="Error 404">
-					<img class="galleryImg" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTzoOsISvV_BmIZ-NYvvcR8qlehXhYDOSPS73KZ9OzwlNChLK4QwQ" alt="Error 404">
-					<img class="galleryImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTp1-NNfLpNtsFQY25z7A4u9pp2D_vJHTNU70RDupydx4i7BrMKYw" alt="Error 404">
-				</div>
-			</main>
+		<nav>
+			<button id="toggle">Hide</button>
+			<button id="resize">&harr;</button>
+			<button id="add">Add</button>
+		</nav>
+		
+		<div id="main">
+			<img id="mainPic" src="http://www.aspneter.com/aspneter/wp-content/uploads/2016/01/no-thumb.jpg">
+		</div>
+
+		<div id="gallery">
+			<ul>
+				<li><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSdPPE7OQN1OhFVF-zkfJl0nuYleLMyVMgOzpRky9OjA-gKJnIu"></li>
+				<li><img src="https://i.ytimg.com/vi/_RBNpALibqo/maxresdefault.jpg"></li>
+				<li><img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTcjB70Hm9ieDXAzeMiVOsS4UN_QJUI9Xz8EF_IQXZZE3F0FncG"></li>
+				<li><img src="http://www.familyfriendpoems.com/images/hero/nature-nature.jpg"></li>
+				<li><img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTzoOsISvV_BmIZ-NYvvcR8qlehXhYDOSPS73KZ9OzwlNChLK4QwQ"></li>
+				<li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTp1-NNfLpNtsFQY25z7A4u9pp2D_vJHTNU70RDupydx4i7BrMKYw"></li>
+			</ul>
 		</div>
 	</body>
-</html>	
+</html>
